@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - EVENTHIVE</title>
+    <link rel="stylesheet" href="library/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="library/bootstrap.bundle.min.js"></script>
+    <link rel="icon" href="images/logo.jpg">
+
+    <script>
+        function validateForm() {
+            let isValid = true;
+            let fullname = document.getElementById("fullname").value.trim();
+            let nameRegex = /^[A-Za-z\s]+$/;
+            if (!nameRegex.test(fullname)) {
+                document.getElementById("result2").innerText = "❌ Name must contain only letters";
+                document.getElementById("result2").style.color = "red";
+                isValid = false;
+            } else {
+                document.getElementById("result2").innerText = "";
+            }
+
+            let email = document.getElementById("email").value.trim();
+            let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!emailRegex.test(email)) {
+                document.getElementById("result").innerText = "❌ Invalid Email!";
+                document.getElementById("result").style.color = "red";
+                isValid = false;
+            } else {
+                document.getElementById("result").innerText = "";
+            }
+
+            let password = document.getElementById("password").value.trim();
+            let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            if (!passwordRegex.test(password)) {
+                document.getElementById("result1").innerText = "❌ Weak Password! Min 8 chars, upper, lower, number & special char.";
+                document.getElementById("result1").style.color = "red";
+                isValid = false;
+            } else {
+                document.getElementById("result1").innerText = "";
+            }
+
+            let mobile = document.getElementById("mobile").value.trim();
+            let mobileRegex = /^[0-9]{10}$/;
+            if (!mobileRegex.test(mobile)) {
+                document.getElementById("result3").innerText = "❌ Mobile should contain 10 digits";
+                document.getElementById("result3").style.color = "red";
+                isValid = false;
+            } else {
+                document.getElementById("result3").innerText = "";
+            }
+
+            return isValid;
+        }
+    </script>
+
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            background-image: url("images/login\ background.jpg"); 
+            background-size: cover;
+            background-repeat: no-repeat; 
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            padding-top: 70px;
+        }
+
+        .login-container {
+            background: rgb(237, 234, 234);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: blue;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .show-password {
+            font-size: 14px;
+        }
+        .register-link {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .register-link a {
+            text-decoration: none;
+            color: blue;
+        }
+
+        footer {
+            background: #343a40;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            width: 100%;
+            margin-top: auto; 
+            padding-bottom: 0px;
+        }
+        #footer a{
+            text-decoration: none;
+            color:dimgray;
+        }
+        #footer a:hover{
+            color: #bbbbbb;
+            text-decoration: none;
+        }
+
+        
+        @media (max-width: 768px) { 
+            .login-container {
+                width: 90%;
+                max-width: 320px;
+            }
+        }
+
+        @media (max-width: 480px) { 
+            .login-container {
+                width: 100%;
+                max-width: 300px;
+                padding: 15px;
+            }
+            .login-container h1 {
+                font-size: 20px;
+            }
+            .input-group input {
+                padding: 8px;
+            }
+            .login-btn {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="login-container">
+            <h4>Create your Account</h4>
+            <form action="register.php" method="POST" onsubmit="return validateForm()">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Full Name" required>
+                    <span id="result2"></span>
+                </div>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Enter email" required>
+                    <div id="result"></div>
+                </div>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Create strong Password" required>
+                    <span id="result1"></span>
+                </div>
+                <div class="show-password">
+                    <input type="checkbox" id="togglePassword"> Show Password
+                </div>
+
+                <div class="input-group mb-3">
+                    <span class="input-group-text">📞 +91</span>
+                    <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Enter your mobile number" required>
+                    <span id="result3"></span>
+                </div>
+                <button type="submit" class="login-btn">Register</button>
+            </form>
+            <p class="register-link">Already have an account? <a href="login.html">Login</a></p>
+        </div>
+    </div>
+    <footer id="footer">
+        <p>&copy; 2025 EventHive. All rights reserved.</p>
+        <p>📧<a href="mailto:preethambk0111@gmail.com">preethambk0111@gmail.com</a></p>
+        <p> 📞<a href="tel:+916281175531" >+916281175531</a></p>
+    </footer>
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("togglePassword").addEventListener("change", function () {
+        let passwordField = document.getElementById("password");
+        passwordField.type = this.checked ? "text" : "password";
+    });
+});
+</script>
+
+</body>
+</html>
