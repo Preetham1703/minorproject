@@ -29,9 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         echo "<script>alert('Login successful!'); window.location.href = 'admindash.php';</script>";
     } else {
-        echo "<script>alert('Invalid email or password!'); window.location.href = 'login.html';</script>";
+        echo "<script>alert('Invalid email or password!'); window.location.href = 'adminlogin.html';</script>";
     }
 } else {
-    echo "<script>alert('Invalid request!'); window.location.href = 'login.html';</script>";
+    echo "<script>alert('Invalid request!'); window.location.href = 'adminlogin.html';</script>";
 }
 ?>
