@@ -66,6 +66,7 @@
             width: 100%;
             border-radius: 8px;
             padding-bottom: 0px;
+            margin-top: 5px;
         }
         #footer a{
             text-decoration: none;
@@ -127,14 +128,13 @@
         </div>
       </nav>
     
-        <div id="mainbar">
-          <form class="bg-light p-2 rounded">
+      <div id="mainbar">
+        <form class="bg-light p-2 rounded">
             <h4 style="animation: slideIn 1s ease-in-out;"><b>MUSIC EVENTS</b></h4>
             <div class="row g-3">
                 <div class="col-sm-2">
                     <label for="city" class="form-label">Select Your Location</label>
                 </div>
-        
                 <div class="col-sm-9">
                     <select name="city" id="city" class="form-select">
                         <option value="">Select City</option>
@@ -145,15 +145,14 @@
                         <option value="Karimnagar">Karimnagar</option>
                     </select>
                 </div>
-        
                 <div class="col-sm-1">
                     <button type="button" onclick="fetchEvents()" class="btn btn-info">Search</button>
                 </div>
             </div>
         </form>
-          <br>
-          <div style="font-family: cursive ; text-align: center;" id="result"></div>
-        </div>
+        <br>
+        <div style="font-family: cursive; text-align: center;" id="result"></div>
+    </div>
       
       
     <footer id="footer">

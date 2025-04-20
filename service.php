@@ -29,12 +29,11 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             flex-wrap: wrap;
-            animation: fadeIn 1s ease-in-out;
             background-image: url(images/backg.jpg);
-            animation: slideIn 1s ease-in-out;
+            animation: fadeIn 1s ease-in-out;
         }
-        #title h1{
-            font-weight:bold;
+        #title h1 {
+            font-weight: bold;
         }
         #title-img {
             height: 60px;
@@ -57,7 +56,6 @@
             padding: 20px;
             width: 100%;
             border-radius: 8px;
-            padding-bottom: 5px;
         }
         #footer a {
             text-decoration: none;
@@ -84,34 +82,82 @@
     <script>
         function validateForm() {
             let isValid = true;
+
+            // Validate Name
             let fullname = document.getElementById("name").value.trim();
             let nameRegex = /^[A-Za-z\s]+$/;
-            if (fullname == "") {
-                document.getElementById("result1").innerText = "Should Not be Empty";
+            if (fullname === "") {
+                document.getElementById("result1").innerText = "Name is required.";
                 document.getElementById("result1").style.color = "red";
+                isValid = false;
             } else if (!nameRegex.test(fullname)) {
-                document.getElementById("result1").innerText = "❌ Name must contain only letters";
+                document.getElementById("result1").innerText = "Name must contain only letters.";
                 document.getElementById("result1").style.color = "red";
                 isValid = false;
             } else {
                 document.getElementById("result1").innerText = "";
             }
 
+            // Validate Mobile
             let mobile = document.getElementById("mobile").value.trim();
             let mobileRegex = /^[0-9]{10}$/;
-            if (mobile == "") {
-                document.getElementById("result2").innerText = "Should Not be Empty";
+            if (mobile === "") {
+                document.getElementById("result2").innerText = "Mobile number is required.";
                 document.getElementById("result2").style.color = "red";
+                isValid = false;
             } else if (!mobileRegex.test(mobile)) {
-                document.getElementById("result2").innerText = "❌ Mobile should contain 10 digits";
+                document.getElementById("result2").innerText = "Mobile number must contain exactly 10 digits.";
                 document.getElementById("result2").style.color = "red";
                 isValid = false;
             } else {
                 document.getElementById("result2").innerText = "";
             }
 
+            // Validate City
+            let city = document.getElementById("city").value;
+            if (city === "") {
+                document.getElementById("cityError").innerText = "Please select a city.";
+                isValid = false;
+            } else {
+                document.getElementById("cityError").innerText = "";
+            }
+
+            // Validate Services
+            let checkboxes = document.querySelectorAll(".service-checkbox");
+            let isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+            let checkboxError = document.getElementById("checkbox-error");
+
+            if (!isChecked) {
+                checkboxError.style.display = "block";
+                isValid = false;
+            } else {
+                checkboxError.style.display = "none";
+            }
+
+            // Validate "Others" Input
+            let otherCheckbox = document.getElementById("check5");
+            let otherServiceText = document.getElementById("otherServiceText");
+            if (otherCheckbox.checked && otherServiceText.value.trim() === "") {
+                alert("Please specify the 'Other' service.");
+                isValid = false;
+            }
+
             return isValid;
         }
+
+        // Show/hide input when "Others" checkbox is checked
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("check5").addEventListener("change", function () {
+                let otherInput = document.getElementById("otherServiceInput");
+                if (this.checked) {
+                    otherInput.style.display = "block";
+                    document.getElementById("otherServiceText").setAttribute("required", "true");
+                } else {
+                    otherInput.style.display = "none";
+                    document.getElementById("otherServiceText").removeAttribute("required");
+                }
+            });
+        });
     </script>
 </head>
 <body>
@@ -151,61 +197,56 @@
         }
         ?>
 
-        <form action="save_service.php" method="POST" class="needs-validation bg-light p-5 rounded" novalidate id="eventForm">
-            <div class="input-group mb-3">
-                <span class="input-group-text">Name</span>
-                <input type="text" class="form-control" placeholder="Enter your name" id="name" name="name" required>
-                <div class="invalid-feedback">Required field</div><span id="result1"></span>
+        <form action="save_service.php" method="POST" class="bg-light p-5 rounded" id="eventForm" onsubmit="return validateForm()">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+                <span id="result1" class="text-danger"></span>
             </div>
 
-            <div class="input-group mb-3">
-                <span class="input-group-text">Mobile</span>
-                <input type="text" class="form-control" placeholder="Enter your Mobile number" id="mobile" name="mobile" required>
-                <div class="invalid-feedback">Required field</div><span id="result2"></span>
+            <div class="mb-3">
+                <label for="mobile" class="form-label">Mobile</label>
+                <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter your Mobile number">
+                <span id="result2" class="text-danger"></span>
             </div>
 
-            <div class="form-floating mt-4">
-                <select name="city" id="city" class="form-select" required>
+            <div class="mb-3">
+                <label for="city" class="form-label">City</label>
+                <select name="city" id="city" class="form-select">
+                    <option value="">Select City</option>
                     <option value="Bangalore">Bangalore</option>
                     <option value="Hyderabad">Hyderabad</option>
                     <option value="Mumbai">Mumbai</option>
                     <option value="Vizag">Vizag</option>
                     <option value="Karimnagar">Karimnagar</option>
                 </select>
-                <label for="city" class="form-label">Select your City</label>
-                <div class="invalid-feedback">Please select a city</div>
+                <span id="cityError" class="text-danger"></span>
             </div>
 
             <label for="service" class="form-label mt-3">Select your service (at least one)</label>
-
             <div class="form-check">
                 <input type="checkbox" class="form-check-input service-checkbox" id="check1" name="service[]" value="Sound System">
                 <label class="form-check-label" for="check1">Sound System</label>
             </div>
-
             <div class="form-check">
                 <input type="checkbox" class="form-check-input service-checkbox" id="check2" name="service[]" value="Decoration">
                 <label class="form-check-label" for="check2">Decoration</label>
             </div>
-
             <div class="form-check">
                 <input type="checkbox" class="form-check-input service-checkbox" id="check3" name="service[]" value="Fireworks">
                 <label class="form-check-label" for="check3">Fireworks</label>
             </div>
-
             <div class="form-check">
                 <input type="checkbox" class="form-check-input service-checkbox" id="check4" name="service[]" value="Technicians">
                 <label class="form-check-label" for="check4">Technicians</label>
             </div>
-
-            <!-- Others Checkbox -->
             <div class="form-check">
                 <input type="checkbox" class="form-check-input service-checkbox" id="check5" name="service[]" value="Other">
                 <label class="form-check-label" for="check5">Others</label>
             </div>
 
-            <!-- Hidden Input for "Others" -->
             <div id="otherServiceInput" class="mt-2" style="display: none;">
+                <label for="otherServiceText" class="form-label">Specify Other Service</label>
                 <input type="text" class="form-control" id="otherServiceText" name="otherServiceText" placeholder="Enter other service">
             </div>
 
@@ -213,44 +254,6 @@
 
             <button type="submit" class="btn btn-primary mt-3">Add</button>
         </form>
-
-        <script>
-            (function () {
-                'use strict';
-                document.getElementById('eventForm').addEventListener('submit', function (event) {
-                    let isValid = this.checkValidity();
-                    let checkboxes = document.querySelectorAll('.service-checkbox');
-                    let isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
-                    let checkboxError = document.getElementById('checkbox-error');
-
-                    if (!isChecked) {
-                        isValid = false;
-                        checkboxError.style.display = 'block';
-                    } else {
-                        checkboxError.style.display = 'none';
-                    }
-
-                    if (!isValid) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-
-                    this.classList.add('was-validated');
-                });
-
-                // Show/hide input when "Others" checkbox is checked
-                document.getElementById('check5').addEventListener('change', function () {
-                    let otherInput = document.getElementById('otherServiceInput');
-                    if (this.checked) {
-                        otherInput.style.display = 'block';
-                        document.getElementById('otherServiceText').setAttribute('required', 'true');
-                    } else {
-                        otherInput.style.display = 'none';
-                        document.getElementById('otherServiceText').removeAttribute('required');
-                    }
-                });
-            })();
-        </script>
     </div>
     <footer id="footer">
         <p> &copy; 2025 EventHive. All rights reserved.</p>
