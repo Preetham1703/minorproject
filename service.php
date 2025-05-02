@@ -98,7 +98,7 @@
                 document.getElementById("result1").innerText = "";
             }
 
-            // Validate Mobile
+            
             let mobile = document.getElementById("mobile").value.trim();
             let mobileRegex = /^[0-9]{10}$/;
             if (mobile === "") {
@@ -113,7 +113,7 @@
                 document.getElementById("result2").innerText = "";
             }
 
-            // Validate City
+            
             let city = document.getElementById("city").value;
             if (city === "") {
                 document.getElementById("cityError").innerText = "Please select a city.";
@@ -122,7 +122,7 @@
                 document.getElementById("cityError").innerText = "";
             }
 
-            // Validate Services
+            
             let checkboxes = document.querySelectorAll(".service-checkbox");
             let isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
             let checkboxError = document.getElementById("checkbox-error");
@@ -134,7 +134,7 @@
                 checkboxError.style.display = "none";
             }
 
-            // Validate "Others" Input
+            
             let otherCheckbox = document.getElementById("check5");
             let otherServiceText = document.getElementById("otherServiceText");
             if (otherCheckbox.checked && otherServiceText.value.trim() === "") {
@@ -145,7 +145,7 @@
             return isValid;
         }
 
-        // Show/hide input when "Others" checkbox is checked
+       
         document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("check5").addEventListener("change", function () {
                 let otherInput = document.getElementById("otherServiceInput");
@@ -187,8 +187,6 @@
     </div>
     <div id="mainbar" class="container p-3">
         <h2 style="text-align: center;">ADD YOUR SERVICE</h2>
-        
-        <!-- Display success or error message -->
         <?php
         if (isset($_GET['message'])) {
             $message = htmlspecialchars($_GET['message']);

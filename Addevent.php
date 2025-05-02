@@ -109,8 +109,6 @@
         
         <div id="mainbar">
             <h2 style="text-align: center;">ADD YOUR EVENT</h2>
-            
-            <!-- Display success or error message -->
             <?php
             if (isset($_GET['message'])) {
                 $message = htmlspecialchars($_GET['message']);
@@ -146,7 +144,6 @@
                     </select>
                     <label for="city">Select your City</label>
                 </div>
-                <!-- Available Services Display -->
                 <div id="available-services">
                     <p>Select a city to see available services.</p>
                 </div>
@@ -188,49 +185,36 @@
     let eventDate = document.querySelector("[name='event_date']").value;
     let eventTime = document.querySelector("[name='event_time']").value;
     let fileInput = document.querySelector("[name='file']");
-
-    // Name validation: Only letters and spaces allowed
     let nameRegex = /^[A-Za-z\s]+$/;
     if (!nameRegex.test(name) || name.length < 2) {
         alert("Name should contain only letters and be at least 2 characters long.");
         event.preventDefault();
         return;
     }
-
-    // Email validation (basic format check)
     let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
         alert("Enter a valid email address.");
         event.preventDefault();
         return;
     }
-
-    // Pincode validation: Must be a 6-digit number
     if (!/^\d{6}$/.test(pincode)) {
         alert("Pincode must be a 6-digit number.");
         event.preventDefault();
         return;
     }
-
-    // Date and time validation: Cannot be in the past
-    let now = new Date(); // Current date and time
-    let selectedDate = new Date(eventDate + "T" + eventTime); // Combine date and time
-
+    let now = new Date(); 
+    let selectedDate = new Date(eventDate + "T" + eventTime); 
     if (selectedDate < now) {
         alert("Event date and time cannot be in the past.");
         event.preventDefault();
         return;
     }
-
-    // File validation: Check if a file is selected
     if (fileInput.files.length === 0) {
         alert("Please upload a proof of conduction.");
         event.preventDefault();
         return;
     }
 });
-
-        // AJAX to fetch available services when city changes
         document.getElementById("city").addEventListener("change", function() {
             let city = this.value;
             let serviceDiv = document.getElementById("available-services");
@@ -239,7 +223,6 @@
                 serviceDiv.innerHTML = "<p>Select a city to see available services.</p>";
                 return;
             }
-
             fetch("get_services.php?city=" + encodeURIComponent(city))
                 .then(response => response.json())
                 .then(data => {

@@ -6,10 +6,7 @@ if (!isset($_SESSION["user_id"])) {
     header("Location: login.html");
     exit();
 }
-
 $user_name = $_SESSION["user_name"];
-
-// Fetch all events from the database
 $sql = "SELECT name, category, city, address, event_date, proof_of_conduction FROM events";
 $result = $conn->query($sql);
 ?>
@@ -54,7 +51,7 @@ $result = $conn->query($sql);
             color: #007aff; 
         }
         footer {
-            background: #1c1c1c;
+            background: #343a40;
             color: white;
             text-align: center;
             padding: 10px;
@@ -62,12 +59,13 @@ $result = $conn->query($sql);
             border-radius: 8px;
             padding-bottom: 5px;
         }
-        #footer a {
+        #footer a{
             text-decoration: none;
-            color: dimgray;
+            color:dimgray;
         }
-        #footer a:hover {
-            color: blue;
+        #footer a:hover{
+            color: #bbbbbb;
+            text-decoration: none;
         }
         .events-container {
             display: flex;
@@ -125,7 +123,7 @@ $result = $conn->query($sql);
         <p>All Events:</p>
         <div>
             <?php 
-            $event_count = $result->num_rows; // Count the total number of events
+            $event_count = $result->num_rows;
             echo "<p><strong>Total Events:</strong> $event_count</p>";
 
             $current_date = date("Y-m-d");
@@ -142,7 +140,6 @@ $result = $conn->query($sql);
             ?>
 
             <div class="events-container">
-                <!-- Upcoming Events Section -->
                 <div class="events-section">
                     <h4><u><b>Upcoming Events</b></u></h4>
                     <?php
@@ -154,10 +151,7 @@ $result = $conn->query($sql);
                                     <p><strong>Category:</strong> ' . htmlspecialchars($event["category"]) . '</p>
                                     <p><strong>City:</strong> ' . htmlspecialchars($event["city"]) . '</p>
                                     <a href="uploads/' . basename(htmlspecialchars($event["proof_of_conduction"])) . '" class="btn btn-primary btn-sm" download>Download Proof</a>
-                                    <form method="POST" action="remove_event.php" style="display:inline;" onsubmit="return confirm(\'Are you sure you want to remove this event?\');">
-                                        <input type="hidden" name="event_name" value="' . htmlspecialchars($event["name"]) . '">
-                                        <button type="submit" class="btn btn-danger btn-sm">Remove</button>
-                                    </form>
+                        
                                   </div>';
                         }
                     } else {
@@ -165,8 +159,6 @@ $result = $conn->query($sql);
                     }
                     ?>
                 </div>
-
-                <!-- Completed Events Section -->
                 <div class="events-section">
                     <h4><u><b>Completed Events</b></u></h4>
                     <?php

@@ -54,9 +54,9 @@
 
 
 session_start();
-include 'config.php'; // Ensure you have a DB connection file
+include 'config.php'; 
 
-// Ensure user is logged in
+
 if (!isset($_SESSION['user_email'])) {
     die("Unauthorized access. Please log in first.");
 }
@@ -71,21 +71,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $address = $_POST['address'];
     $email = $_SESSION['user_email']; // Get email from session
 
-    // File Upload Handling
     $targetDir = "uploads/";
     $fileName = basename($_FILES["file"]["name"]);
     $targetFilePath = $targetDir . $fileName;
     $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
 
-    // Check if file is valid
+    
     $allowedTypes = ['jpg', 'png', 'jpeg', 'pdf'];
     if (!in_array($fileType, $allowedTypes)) {
         die("Invalid file type. Only JPG, PNG, JPEG, and PDF allowed.");
     }
 
-    // Move the uploaded file
     if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)) {
-        // Insert data into database
         $sql = "INSERT INTO events (name, category, city, event_date, event_time, pincode, address, email, proof_of_conduction) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
@@ -93,8 +90,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stmt->execute()) {
             echo "<script>alert('Event added successfully!');</script>";
-            echo "<script>window.location.href='dashboard.php';</script>"; // Redirect using JavaScript
-            exit(); // Ensure script stops execution after redirection
+            echo "<script>window.location.href='dashboard.php';</script>"; 
+            exit(); 
         } else {
             echo "Error: " . $conn->error;
         }

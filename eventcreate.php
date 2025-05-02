@@ -5,17 +5,13 @@ $username = "root";
 $password = "Root";
 $dbname = "demo";
 
-// Enable error reporting for debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Connect to database
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Database connection failed: " . $conn->connect_error);
 }
-
-// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
@@ -24,8 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>alert('Email and Password are required!'); window.location.href = 'login.html';</script>";
         exit();
     }
-
-    // Check if email exists in the database
     $stmt = $conn->prepare("SELECT id, name, password FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -58,5 +52,5 @@ $conn->close();
 ?>
 <?php
 session_start();
-$_SESSION['user_email'] = $email; // Assuming $email is fetched from the database upon successful login
+$_SESSION['user_email'] = $email;
 ?>

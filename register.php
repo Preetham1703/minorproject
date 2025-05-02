@@ -41,9 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fullname = trim($_POST['fullname']);
     $email = trim($_POST['email']);
     $mobile = trim($_POST['mobile']);
-    $password = $_POST['password']; // Secure password hashing
+    $password = $_POST['password']; 
 
-    // Check if email already exists
     $check_email = $conn->prepare("SELECT * FROM users WHERE email = ?");
     $check_email->bind_param("s", $email);
     $check_email->execute();

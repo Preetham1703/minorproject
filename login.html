@@ -71,6 +71,10 @@
             cursor: pointer;
             border-radius: 5px;
         }
+        .login-btn:hover {
+            background: linear-gradient(135deg, #0056b3, #003f7f);
+            transform: scale(1.05);
+        }
 
         .register-link {
             margin-top: 10px;
@@ -81,8 +85,14 @@
             text-decoration: none;
             color: blue;
         }
+        .register-link a:hover {
+            color: #0056b3;
+        }
         .return{
             padding-left: 0;
+        }
+        .return a:hover, .admin a:hover {
+            color: #0056b3;
         }
         .admin{
             padding-right: 0px;
@@ -112,8 +122,16 @@
             text-decoration: none;
             color: blue;
         }
-
-        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
         @media (max-width: 768px) { 
             .login-container {
                 width: 90%;
@@ -143,7 +161,7 @@
 <body>
     <div class="wrapper">
         <div class="login-container">
-            <h2><b>Welcome!</b></h1>
+            <h3><b>Login !</b></h1>
             <form action="eventcreate.php" method="POST">
     <div class="input-group">
         <label for="email">Email</label>
