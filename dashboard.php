@@ -12,14 +12,14 @@ $user_email = $_SESSION["user_email"];
 $monthFilter = isset($_GET['month']) ? intval($_GET['month']) : 0;
 
 if ($monthFilter > 0) {
-    $sql = "SELECT name, category, city, address, event_date, proof_of_conduction 
+    $sql = "SELECT name, category, city, address, event_date, price, proof_of_conduction 
             FROM events 
             WHERE email = ? AND MONTH(event_date) = ? 
             ORDER BY event_date ASC";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("si", $user_email, $monthFilter);
 } else {
-    $sql = "SELECT name, category, city, address, event_date, proof_of_conduction 
+    $sql = "SELECT name, category, city, address, price, event_date, proof_of_conduction 
             FROM events 
             WHERE email = ? 
             ORDER BY event_date ASC";
@@ -243,6 +243,7 @@ while ($row = $result->fetch_assoc()) {
                                     <p><strong>Category:</strong> ' . htmlspecialchars($event["category"]) . '</p>
                                     <p><strong>City:</strong> ' . htmlspecialchars($event["city"]) . '</p>
                                     <p><strong>Address:</strong> ' . htmlspecialchars($event["address"]) . '</p>
+                                    <p><strong>Price:</strong> ' . htmlspecialchars($event["price"]) . '</p>
                                     <a href="uploads/' . basename(htmlspecialchars($event["proof_of_conduction"])) . '" class="btn btn-primary btn-sm" download>Download Proof</a>
                                 </div>
                                 <div class="modal-footer">
@@ -285,6 +286,7 @@ while ($row = $result->fetch_assoc()) {
                                     <p><strong>Category:</strong> ' . htmlspecialchars($event["category"]) . '</p>
                                     <p><strong>City:</strong> ' . htmlspecialchars($event["city"]) . '</p>
                                     <p><strong>Address:</strong> ' . htmlspecialchars($event["address"]) . '</p>
+                                    <p><strong>Price:</strong> ' . htmlspecialchars($event["price"]) . '</p>
                                     <a href="uploads/' . basename(htmlspecialchars($event["proof_of_conduction"])) . '" class="btn btn-primary btn-sm" download>Download Proof</a>
                                 </div>
                                 <div class="modal-footer">

@@ -34,7 +34,7 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo "<li class='list-group-item'>";
         echo "<strong>" . htmlspecialchars($row['name']) . "</strong> - " . htmlspecialchars($row['event_date']) . " at " . htmlspecialchars($row['event_time']);
-        echo "<br><small>Location: " . htmlspecialchars($row['address']) . " (Pincode: " . htmlspecialchars($row['pincode']) . ")</small>";
+        echo "<br><small>Location: " . htmlspecialchars($row['address']) . " (Pincode: " . htmlspecialchars($row['pincode']) . " (Price: " . htmlspecialchars($row['price']) . ")</small>";
         echo "</li>";
     }
     echo "</ul>";

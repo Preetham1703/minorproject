@@ -7,7 +7,7 @@ if (!isset($_SESSION["user_id"])) {
     exit();
 }
 $user_name = $_SESSION["user_name"];
-$sql = "SELECT name, category, city, address, event_date, proof_of_conduction FROM events";
+$sql = "SELECT name, category, city, address, event_date, price, email, proof_of_conduction FROM events";
 $result = $conn->query($sql);
 ?>
 
@@ -150,6 +150,8 @@ $result = $conn->query($sql);
                                     <p><strong>Date:</strong> ' . htmlspecialchars($event["event_date"]) . '</p>
                                     <p><strong>Category:</strong> ' . htmlspecialchars($event["category"]) . '</p>
                                     <p><strong>City:</strong> ' . htmlspecialchars($event["city"]) . '</p>
+                                    <p><strong>Price:</strong> ' . htmlspecialchars($event["price"]) . '</p>
+                                    <p><strong>Organizing by:</strong> ' . htmlspecialchars($event["email"]) . '</p>
                                     <a href="uploads/' . basename(htmlspecialchars($event["proof_of_conduction"])) . '" class="btn btn-primary btn-sm" download>Download Proof</a>
                         
                                   </div>';
@@ -169,6 +171,8 @@ $result = $conn->query($sql);
                                     <p><strong>Date:</strong> ' . htmlspecialchars($event["event_date"]) . '</p>
                                     <p><strong>Category:</strong> ' . htmlspecialchars($event["category"]) . '</p>
                                     <p><strong>City:</strong> ' . htmlspecialchars($event["city"]) . '</p>
+                                    <p><strong>Price:</strong> ' . htmlspecialchars($event["price"]) . '</p>
+                                    <p><strong>Organized by:</strong> ' . htmlspecialchars($event["email"]) . '</p>
                                     <a href="uploads/' . basename(htmlspecialchars($event["proof_of_conduction"])) . '" class="btn btn-primary btn-sm" download>Download Proof</a>
                                   </div>';
                         }
